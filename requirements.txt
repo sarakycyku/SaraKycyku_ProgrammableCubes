@@ -1,0 +1,10 @@
+# Core simulation and plotting dependencies
+numpy
+numba
+matplotlib
+
+# Dependencies used by the tutorial notebooks
+seaborn
+tqdm
+jupyter
+pygmo; platform_system == "Linux"

@@ -1,0 +1,12 @@
+name: programmable-cubes
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - numba
+  - matplotlib
+  - seaborn
+  - pygmo
+  - tqdm
+  - jupyter
