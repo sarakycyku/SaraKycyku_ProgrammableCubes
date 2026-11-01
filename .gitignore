@@ -26,3 +26,4 @@ env/
 .idea/
 
 results/*.txt
+solutions/runs/
