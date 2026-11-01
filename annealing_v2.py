@@ -182,23 +182,32 @@ def main():
 
     os.makedirs("solutions", exist_ok=True)
     output_path = f"solutions/{name.lower()}_annealing_v2.json"
-    with open(output_path, "w", encoding="utf-8") as output_file:
-        json.dump(
-            {
-                "problem": name,
-                "fitness": fitness,
-                "C": int(correct_final),
-                "L": len(moves),
-                "trials": trials,
-                "seed": seed,
-                "T0": temperature_start,
-                "T1": temperature_end,
-                "chromosome": [int(value) for move in moves for value in move] + [-1],
-            },
-            output_file,
-            indent=2,
-        )
-    print("ruajtur te", output_path)
+    better = True
+    if os.path.exists(output_path):
+        with open(output_path, encoding="utf-8") as input_file:
+            previous = json.load(input_file)
+        better = fitness < previous["fitness"]
+
+    if better:
+        with open(output_path, "w", encoding="utf-8") as output_file:
+            json.dump(
+                {
+                    "problem": name,
+                    "fitness": fitness,
+                    "C": int(correct_final),
+                    "L": len(moves),
+                    "trials": trials,
+                    "seed": seed,
+                    "T0": temperature_start,
+                    "T1": temperature_end,
+                    "chromosome": [int(value) for move in moves for value in move] + [-1],
+                },
+                output_file,
+                indent=2,
+            )
+        print("ruajtur si rezultati më i mirë te", output_path)
+    else:
+        print("nuk është më i mirë se rezultati i ruajtur; skedari nuk u mbishkrua")
 
 
 if __name__ == "__main__":
