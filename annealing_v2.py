@@ -20,7 +20,7 @@ def main():
     seed = int(sys.argv[3]) if len(sys.argv) > 3 else 0
 
     # Annealing parameters. Temperature is measured in L1 distance units.
-    temperature_start, temperature_end = 0.6, 0.08
+    temperature_start, temperature_end = 0.5, 0.25
     probability_zero = 0.3
     probability_misplaced = 0.7
     rematch_every = 200
@@ -181,7 +181,7 @@ def main():
         )
 
     os.makedirs("solutions", exist_ok=True)
-    output_path = f"solutions/{name.lower()}_annealing_v2.json"
+    output_path = f"solutions/{name.lower()}_annealing_v2_seed_{seed}.json"
     better = True
     if os.path.exists(output_path):
         with open(output_path, encoding="utf-8") as input_file:
