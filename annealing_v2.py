@@ -82,6 +82,13 @@ def main():
     start_time = time.time()
     report_every = max(1, trials // 20)
     for trial in range(trials):
+        if trial % report_every == 0:
+            temperature = temperature_start * (temperature_end / temperature_start) ** (trial / trials)
+            print(
+                f"k={trial:6d} T={temperature:.3f} E={total_distance:5d} "
+                f"C={correct_count:3d} L={len(moves):5d} | "
+                f"më e mira: C={best_correct} L={best_length}"
+            )
         if len(moves) >= max_commands - 2:
             break
         temperature = temperature_start * (temperature_end / temperature_start) ** (trial / trials)
@@ -136,13 +143,6 @@ def main():
             target_of = rematch(cubes.cube_position)
             distances = np.abs(cubes.cube_position - target_of).sum(axis=1)
             total_distance = int(distances.sum())
-
-        if trial % report_every == 0:
-            print(
-                f"k={trial:6d} T={temperature:.3f} E={total_distance:5d} "
-                f"C={correct_count:3d} L={len(moves):5d} | "
-                f"më e mira: C={best_correct} L={best_length}"
-            )
 
     elapsed = time.time() - start_time
 
