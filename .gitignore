@@ -24,3 +24,5 @@ env/
 .env
 .vscode/
 .idea/
+
+results/*.txt
