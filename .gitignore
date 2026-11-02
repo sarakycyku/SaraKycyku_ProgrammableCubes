@@ -28,3 +28,4 @@ env/
 results/*.txt
 solutions/runs/
 *.lock
+solutions/*_seed_*.json
