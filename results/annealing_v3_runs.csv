@@ -6,3 +6,11 @@ JWST,blockers,1,0.5,0.25,600000,0.5,0.3,0.3,2,200,,-0.68804,521,14268,441.1
 JWST,blockers,2,0.5,0.25,600000,0.5,0.3,0.3,2,200,,-0.68712,520,14041,444.1
 JWST,blockers,0,0.5,0.25,600000,0.5,0.3,0.3,2,200,,-0.6498,499,13060,447.4
 JWST,restart_v2,0,0.35,0.2,400000,0.5,0.3,0.3,2,200,solutions/jwst_annealing_v2.json,-0.70693,534,15761,107.9
+JWST,restart_near0,1,0.35,0.2,400000,0.5,0.0,0.3,2,200,solutions/jwst_annealing_v3.json,-0.70971,537,16438,52.4
+JWST,restart_near03,1,0.35,0.2,400000,0.5,0.3,0.3,2,200,solutions/jwst_annealing_v3.json,-0.70693,534,15761,58.3
+JWST,restart_near0,2,0.35,0.2,400000,0.5,0.0,0.3,2,200,solutions/jwst_annealing_v3.json,-0.70971,537,16438,51.7
+JWST,restart_near03,2,0.35,0.2,400000,0.5,0.3,0.3,2,200,solutions/jwst_annealing_v3.json,-0.71081,542,18306,57.6
+JWST,restart_near0,3,0.35,0.2,400000,0.5,0.0,0.3,2,200,solutions/jwst_annealing_v3.json,-0.71819,554,21796,51.4
+JWST,restart_near03,3,0.35,0.2,400000,0.5,0.3,0.3,2,200,solutions/jwst_annealing_v3.json,-0.71081,542,18306,58.5
+ISS,restart_v2,0,0.35,0.2,150000,0.5,0.3,0.3,2,200,solutions/iss_annealing_v2.json,-0.84642,136,2682,12.2
+Enterprise,v3,0,0.5,0.25,20000,0.5,0.3,0.3,2,200,,-0.09737,448,851,9.7
