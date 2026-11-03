@@ -14,3 +14,11 @@ JWST,restart_near0,3,0.35,0.2,400000,0.5,0.0,0.3,2,200,solutions/jwst_annealing_
 JWST,restart_near03,3,0.35,0.2,400000,0.5,0.3,0.3,2,200,solutions/jwst_annealing_v3.json,-0.71081,542,18306,58.5
 ISS,restart_v2,0,0.35,0.2,150000,0.5,0.3,0.3,2,200,solutions/iss_annealing_v2.json,-0.84642,136,2682,12.2
 Enterprise,v3,0,0.5,0.25,20000,0.5,0.3,0.3,2,200,,-0.09737,448,851,9.7
+Enterprise,main,0,0.5,0.25,2000000,0.7,0.0,0.3,2,200,,-0.79858,1320,46963,866.1
+ISS,r2,1,0.35,0.2,150000,0.5,0.0,0.3,2,200,solutions/iss_pruned.json,-0.8985,141,2112,15.1
+ISS,r2,2,0.35,0.2,150000,0.5,0.0,0.3,2,200,solutions/iss_pruned.json,-0.88696,138,1548,14.3
+ISS,r2,3,0.35,0.2,150000,0.5,0.0,0.3,2,200,solutions/iss_pruned.json,-0.88166,136,1062,16.8
+JWST,r2,1,0.35,0.2,400000,0.5,0.0,0.3,2,200,solutions/jwst_pruned.json,-0.72926,554,19472,75.0
+ISS,r2,4,0.35,0.2,150000,0.5,0.0,0.3,2,200,solutions/iss_pruned.json,-0.88166,136,1062,15.9
+ISS,r2,5,0.35,0.2,150000,0.5,0.0,0.3,2,200,solutions/iss_pruned.json,-0.89524,141,2262,14.1
+Enterprise,r2,1,0.35,0.2,500000,0.5,0.0,0.3,2,200,solutions/enterprise_annealing_main_seed_0.json,-0.79858,1320,46963,192.5

@@ -29,3 +29,5 @@ results/*.txt
 solutions/runs/
 *.lock
 solutions/*_seed_*.json
+solutions/*_r2.json
+solutions/iss_annealing_v3.json
