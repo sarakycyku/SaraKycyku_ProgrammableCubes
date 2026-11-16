@@ -14,6 +14,25 @@ from scipy.optimize import linear_sum_assignment
 
 from programmable_cubes_UDP import programmable_cubes_UDP, ProgrammableCubes
 
+try:
+    import msvcrt  # Windows
+
+    def acquire_lock(file_handle):
+        file_handle.seek(0)
+        msvcrt.locking(file_handle.fileno(), msvcrt.LK_LOCK, 1)
+
+    def release_lock(file_handle):
+        file_handle.seek(0)
+        msvcrt.locking(file_handle.fileno(), msvcrt.LK_UNLCK, 1)
+except ImportError:
+    import fcntl  # Linux (for example, Kaggle)
+
+    def acquire_lock(file_handle):
+        fcntl.flock(file_handle.fileno(), fcntl.LOCK_EX)
+
+    def release_lock(file_handle):
+        fcntl.flock(file_handle.fileno(), fcntl.LOCK_UN)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -233,7 +252,6 @@ def main():
         print("not better than the stored run with this seed; not overwritten")
 
     # Also maintain one best-so-far solution across seeds and experiment settings.
-    import msvcrt
     best_path = f"solutions/{args.problem.lower()}_annealing_v3.json"
     best_lock_path = best_path + ".lock"
     with open(best_lock_path, "a+b") as lock_file:
@@ -241,7 +259,7 @@ def main():
             lock_file.write(b"0")
             lock_file.flush()
         lock_file.seek(0)
-        msvcrt.locking(lock_file.fileno(), msvcrt.LK_LOCK, 1)
+        acquire_lock(lock_file)
         try:
             existing_fitness = None
             if os.path.exists(best_path):
@@ -255,7 +273,7 @@ def main():
                 print("best solution unchanged", best_path)
         finally:
             lock_file.seek(0)
-            msvcrt.locking(lock_file.fileno(), msvcrt.LK_UNLCK, 1)
+            release_lock(lock_file)
 
     csv_path = "results/annealing_v3_runs.csv"
     headers = ["problem", "tag", "seed", "t0", "t1", "trials", "p_mis", "p_near",
@@ -266,7 +284,7 @@ def main():
             lock_file.write(b"0")
             lock_file.flush()
         lock_file.seek(0)
-        msvcrt.locking(lock_file.fileno(), msvcrt.LK_LOCK, 1)
+        acquire_lock(lock_file)
         try:
             with open(csv_path, "a+", newline="", encoding="utf-8") as csv_file:
                 csv_file.seek(0, os.SEEK_END)
@@ -282,7 +300,7 @@ def main():
                 csv_file.flush()
         finally:
             lock_file.seek(0)
-            msvcrt.locking(lock_file.fileno(), msvcrt.LK_UNLCK, 1)
+            release_lock(lock_file)
     print("logged to", csv_path)
 
 

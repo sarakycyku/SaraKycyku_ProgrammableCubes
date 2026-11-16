@@ -1,0 +1,32 @@
+start: E=4491 | C=336 | L=0 | f=-0.00000
+k=      0 T=0.500 E= 4491 C= 336 L=     0 | best: C=336 L=0
+k= 100000 T=0.483 E= 2491 C= 727 L=  4572 | best: C=727 L=4556
+k= 200000 T=0.467 E= 1705 C= 905 L=  8373 | best: C=905 L=8353
+k= 300000 T=0.451 E= 1217 C=1045 L= 12253 | best: C=1045 L=12245
+k= 400000 T=0.435 E= 1013 C=1108 L= 15829 | best: C=1111 L=15645
+k= 500000 T=0.420 E=  882 C=1154 L= 19030 | best: C=1154 L=19027
+k= 600000 T=0.406 E=  774 C=1193 L= 22442 | best: C=1197 L=22211
+k= 700000 T=0.392 E=  682 C=1218 L= 25665 | best: C=1218 L=25665
+k= 800000 T=0.379 E=  606 C=1241 L= 28786 | best: C=1241 L=28777
+k= 900000 T=0.366 E=  568 C=1257 L= 31708 | best: C=1258 L=31604
+k=1000000 T=0.354 E=  541 C=1262 L= 34200 | best: C=1266 L=33419
+k=1100000 T=0.342 E=  536 C=1265 L= 36656 | best: C=1266 L=33419
+k=1200000 T=0.330 E=  511 C=1273 L= 38877 | best: C=1275 L=38504
+k=1300000 T=0.319 E=  515 C=1273 L= 41045 | best: C=1275 L=38504
+k=1400000 T=0.308 E=  502 C=1273 L= 42856 | best: C=1275 L=38504
+k=1500000 T=0.297 E=  488 C=1274 L= 44600 | best: C=1275 L=38504
+k=1600000 T=0.287 E=  481 C=1279 L= 46265 | best: C=1275 L=38504
+k=1700000 T=0.277 E=  452 C=1279 L= 47798 | best: C=1275 L=38504
+k=1800000 T=0.268 E=  448 C=1281 L= 49091 | best: C=1275 L=38504
+k=1900000 T=0.259 E=  442 C=1281 L= 50352 | best: C=1275 L=38504
+
+=== RESULT kaggle_seed_1 (Enterprise) ===
+f=-0.77115 | C=1275/1472 | L=38504 | time=2655.3s | seed=1
+saved solutions/enterprise_annealing_kaggle_seed_1_seed_1.json
+Traceback (most recent call last):
+  File "/kaggle/working/SaraKycyku_ProgrammableCubes/annealing_v3.py", line 290, in <module>
+    main()
+    ~~~~^^
+  File "/kaggle/working/SaraKycyku_ProgrammableCubes/annealing_v3.py", line 236, in main
+    import msvcrt
+ModuleNotFoundError: No module named 'msvcrt'
