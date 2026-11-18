@@ -7,7 +7,8 @@ numbers (f, C, L) are recomputed and do not depend on what is stored in the JSON
 Run from the project folder:
   python compare.py                # all problems found in RUNS
   python compare.py ISS JWST       # only these
-Outputs: results/comparison.csv, results/compare_<problem>.png, results/compare_all.png
+Outputs a new versioned report so existing results are never overwritten:
+results/comparison_v5.csv, results/compare_v5_<problem>.png, results/compare_v5_all.png
 """
 import csv
 import json
@@ -30,6 +31,10 @@ RUNS = {
         "Annealing v2": "solutions/iss_annealing_v2.json",
         "Annealing + restart (v3)": "solutions/iss_annealing_v3.json",
         "Annealing v4": "solutions/iss_annealing_v4.json",
+        "SA v5": "solutions/iss_annealing_f5r0.json",
+        "Tabu v2": "solutions/iss_tabu_ft2.json",
+        "SA v5 + pruning": "solutions/iss_final_sa_pruned.json",
+        "Tabu v2 + pruning": "solutions/iss_final_tabu_pruned.json",
         "Annealing + pruning": "solutions/iss_pruned.json",
     },
     "JWST": {
@@ -38,6 +43,10 @@ RUNS = {
         "Annealing v2": "solutions/jwst_annealing_v2.json",
         "Annealing + restart (v3)": "solutions/jwst_annealing_v3.json",
         "Annealing v4": "solutions/jwst_annealing_v4.json",
+        "SA v5": "solutions/jwst_annealing_f5r0.json",
+        "Tabu v2": "solutions/jwst_tabu_ft2.json",
+        "SA v5 + pruning": "solutions/jwst_final_sa_pruned.json",
+        "Tabu v2 + pruning": "solutions/jwst_final_tabu_pruned.json",
         "Annealing + pruning": "solutions/jwst_pruned.json",
     },
     "Enterprise": {
@@ -45,6 +54,10 @@ RUNS = {
         "Tabu search": "solutions/enterprise_tabu_v1.json",
         "Annealing (main)": "solutions/enterprise_annealing_main_seed_0.json",
         "Annealing v4": "solutions/enterprise_annealing_v4.json",
+        "SA v5": "solutions/enterprise_annealing_f5r0.json",
+        "Tabu v2": "solutions/enterprise_tabu_ft2.json",
+        "SA v5 + pruning": "solutions/enterprise_final_sa_pruned.json",
+        "Tabu v2 + pruning": "solutions/enterprise_final_tabu_pruned.json",
         "Annealing + pruning": "solutions/enterprise_pruned.json",
     },
 }
@@ -101,7 +114,7 @@ def plot_problem(axes, problem, rows):
 
 def main():
     wanted = sys.argv[1:] or list(RUNS)
-    cache, results = {}, {}
+    cache, results, plot_results = {}, {}, {}
     for problem in wanted:
         rows = []
         for label, path in RUNS.get(problem, {}).items():
@@ -122,31 +135,32 @@ def main():
             seen[key] = row["label"]
             unique.append(row)
         if unique:
-            results[problem] = unique
+            results[problem] = rows
+            plot_results[problem] = unique
     if not results:
         raise SystemExit("nothing to compare: check the paths in RUNS")
 
     os.makedirs("results", exist_ok=True)
-    with open("results/comparison.csv", "w", newline="", encoding="utf-8") as handle:
+    with open("results/comparison_v5.csv", "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
         writer.writerow(["problem", "algorithm", "f", "C", "n", "L", "file"])
         for rows in results.values():
             for r in rows:
                 writer.writerow([r["problem"], r["label"], round(r["f"], 5), r["C"], r["n"], r["L"], r["file"]])
 
-    for problem, rows in results.items():
+    for problem, rows in plot_results.items():
         fig, axes = plt.subplots(1, 2, figsize=(12, 4.5))
         plot_problem(axes, problem, rows)
         fig.tight_layout()
-        fig.savefig(f"results/compare_{problem.lower()}.png", dpi=150)
+        fig.savefig(f"results/compare_v5_{problem.lower()}.png", dpi=150)
         plt.close(fig)
 
-    fig, all_axes = plt.subplots(len(results), 2, figsize=(12, 4.5 * len(results)), squeeze=False)
-    for axes, (problem, rows) in zip(all_axes, results.items()):
+    fig, all_axes = plt.subplots(len(plot_results), 2, figsize=(12, 4.5 * len(plot_results)), squeeze=False)
+    for axes, (problem, rows) in zip(all_axes, plot_results.items()):
         plot_problem(axes, problem, rows)
     fig.tight_layout()
-    fig.savefig("results/compare_all.png", dpi=150)
-    print("saved results/comparison.csv and results/compare_*.png")
+    fig.savefig("results/compare_v5_all.png", dpi=150)
+    print("saved results/comparison_v5.csv and results/compare_v5_*.png")
 
 
 if __name__ == "__main__":

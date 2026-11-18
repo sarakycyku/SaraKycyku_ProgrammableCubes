@@ -1,0 +1,21 @@
+problem,algorithm,f,C,n,L,file
+ISS,Greedy v1,-0.1327,39,148,102,solutions/iss_greedy_v1.json
+ISS,Hill climbing,-0.61636,103,148,1218,solutions/iss_annealing_hill.json
+ISS,Tabu search,-0.59791,113,148,5715,solutions/iss_tabu_v1.json
+ISS,Annealing v2,-0.84642,136,148,2682,solutions/iss_annealing_v2.json
+ISS,Annealing + restart (v3),-0.8985,141,148,2112,solutions/iss_annealing_v3.json
+ISS,Annealing v4,-0.85932,138,148,2819,solutions/iss_annealing_v4.json
+ISS,SA v5,-0.87523,142,148,3547,solutions/iss_annealing_f5r0.json
+ISS,Annealing + pruning,-0.91921,141,148,1160,solutions/iss_pruned.json
+JWST,Hill climbing,-0.39277,348,643,3618,solutions/jwst_annealing_hill.json
+JWST,Tabu search,-0.64008,530,643,28118,solutions/jwst_tabu_v1.json
+JWST,Annealing v2,-0.69738,518,643,11047,solutions/jwst_annealing_v2.json
+JWST,Annealing + restart (v3),-0.72926,554,643,19472,solutions/jwst_annealing_v3.json
+JWST,Annealing v4,-0.6581,514,643,17615,solutions/jwst_annealing_v4.json
+JWST,SA v5,-0.63811,492,643,12575,solutions/jwst_annealing_f5r0.json
+JWST,Annealing + pruning,-0.72926,554,643,19472,solutions/jwst_pruned.json
+Enterprise,Hill climbing,-0.38445,782,1472,5664,solutions/enterprise_annealing_hill.json
+Enterprise,Tabu search,-0.7736,1318,1472,63095,solutions/enterprise_tabu_v1.json
+Enterprise,Annealing (main),-0.79858,1320,1472,46963,solutions/enterprise_annealing_main_seed_0.json
+Enterprise,Annealing v4,-0.76998,1284,1472,44821,solutions/enterprise_annealing_v4.json
+Enterprise,Annealing + pruning,-0.80222,1320,1472,44439,solutions/enterprise_pruned.json
