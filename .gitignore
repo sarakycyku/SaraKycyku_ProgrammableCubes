@@ -31,3 +31,6 @@ solutions/runs/
 solutions/*_seed_*.json
 solutions/*_r2.json
 solutions/iss_annealing_v3.json
+logs/*
+solutions/*smoke*.json
+solutions/*r0.json
