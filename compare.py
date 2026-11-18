@@ -30,9 +30,6 @@ RUNS = {
         "Annealing v2": "solutions/iss_annealing_v2.json",
         "Annealing + restart (v3)": "solutions/iss_annealing_v3.json",
         "Annealing v4": "solutions/iss_annealing_v4.json",
-        "Annealing v4 (pas pruning)": "solutions/iss_pruned_sa.json",
-        "Tabu search (pas pruning)": "solutions/iss_pruned_tabu.json",
-        "Hill climbing (pas pruning)": "solutions/iss_pruned_rrls.json",
         "Annealing + pruning": "solutions/iss_pruned.json",
     },
     "JWST": {
@@ -41,9 +38,6 @@ RUNS = {
         "Annealing v2": "solutions/jwst_annealing_v2.json",
         "Annealing + restart (v3)": "solutions/jwst_annealing_v3.json",
         "Annealing v4": "solutions/jwst_annealing_v4.json",
-        "Annealing v4 (pas pruning)": "solutions/jwst_pruned_sa.json",
-        "Tabu search (pas pruning)": "solutions/jwst_pruned_tabu.json",
-        "Hill climbing (pas pruning)": "solutions/jwst_pruned_rrls.json",
         "Annealing + pruning": "solutions/jwst_pruned.json",
     },
     "Enterprise": {
@@ -51,9 +45,6 @@ RUNS = {
         "Tabu search": "solutions/enterprise_tabu_v1.json",
         "Annealing (main)": "solutions/enterprise_annealing_main_seed_0.json",
         "Annealing v4": "solutions/enterprise_annealing_v4.json",
-        "Annealing v4 (pas pruning)": "solutions/enterprise_pruned_sa.json",
-        "Tabu search (pas pruning)": "solutions/enterprise_pruned_tabu.json",
-        "Hill climbing (pas pruning)": "solutions/enterprise_pruned_rrls.json",
         "Annealing + pruning": "solutions/enterprise_pruned.json",
     },
 }
@@ -121,20 +112,27 @@ def main():
             rows.append({"problem": problem, "label": label, "f": f, "C": c, "L": l,
                          "n": n, "max_cmds": max_cmds, "file": path})
             print(f"{problem:11s} {label:28s} f={f:8.5f}  C={c}/{n}  L={l}")
-        if rows:
-            results[problem] = rows
+        unique, seen = [], {}
+        for row in rows:
+            key = (round(row["f"], 5), row["C"], row["L"])
+            if key in seen:
+                print(f"note: {problem} / {row['label']} is identical to '{seen[key]}' "
+                      f"(same f, C, L); dropped from the plots. Check that the two files differ.")
+                continue
+            seen[key] = row["label"]
+            unique.append(row)
+        if unique:
+            results[problem] = unique
     if not results:
         raise SystemExit("nothing to compare: check the paths in RUNS")
 
     os.makedirs("results", exist_ok=True)
     with open("results/comparison.csv", "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["problem", "algorithm", "pas_pruning", "f", "C", "n", "L", "file"])
+        writer.writerow(["problem", "algorithm", "f", "C", "n", "L", "file"])
         for rows in results.values():
             for r in rows:
-                pruned = "yes" if r["label"].endswith(" (pas pruning)") else "no"
-                algorithm = r["label"].removesuffix(" (pas pruning)")
-                writer.writerow([r["problem"], algorithm, pruned, round(r["f"], 5), r["C"], r["n"], r["L"], r["file"]])
+                writer.writerow([r["problem"], r["label"], round(r["f"], 5), r["C"], r["n"], r["L"], r["file"]])
 
     for problem, rows in results.items():
         fig, axes = plt.subplots(1, 2, figsize=(12, 4.5))

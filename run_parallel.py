@@ -1,4 +1,4 @@
-"""Run annealing_v4.py on several seeds in parallel, then restart from the best result.
+"""Run annealing_v5.py (or v4 with --script) on several seeds in parallel, then restart from the best result.
 
 Example (from the project folder):
   python run_parallel.py ISS --seeds 0-7 --workers 4 --trials 1000000 --rounds 2
@@ -44,12 +44,14 @@ def main():
     parser.add_argument("--restart-t0", type=float, default=0.35)
     parser.add_argument("--restart-t1", type=float, default=0.2)
     parser.add_argument("--start", default=None, help="solution JSON to begin round 0 from")
+    parser.add_argument("--script", default="annealing_v5.py",
+                        help="annealing script to run (annealing_v4.py or annealing_v5.py)")
     parser.add_argument("--tag", default="chain")
     parser.add_argument("--extra", default="",
-                        help="extra options passed to annealing_v4.py, in quotes")
+                        help="extra options passed to the annealing script, in quotes")
     args = parser.parse_args()
 
-    script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "annealing_v4.py")
+    script = os.path.join(os.path.dirname(os.path.abspath(__file__)), args.script)
     seeds = parse_seeds(args.seeds)
     extra = shlex.split(args.extra)
     previous_best = args.start
@@ -86,7 +88,7 @@ def main():
               f"C={best['C']} L={best['L']} -> {best_path}", flush=True)
         previous_best = best_path
 
-    print("done. Next step: python prune.py", args.problem, previous_best)
+    print("done. Next step: python prune_fast.py", args.problem, previous_best)
 
 
 if __name__ == "__main__":
