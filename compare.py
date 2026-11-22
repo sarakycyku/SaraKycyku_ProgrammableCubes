@@ -36,6 +36,7 @@ RUNS = {
         "SA v5 + pruning": "solutions/iss_final_sa_pruned.json",
         "Tabu v2 + pruning": "solutions/iss_final_tabu_pruned.json",
         "Annealing + pruning": "solutions/iss_pruned.json",
+        "Fast pipeline": "solutions/iss_pipeline_best.json",
     },
     "JWST": {
         "Hill climbing": "solutions/jwst_annealing_hill.json",
@@ -48,6 +49,7 @@ RUNS = {
         "SA v5 + pruning": "solutions/jwst_final_sa_pruned.json",
         "Tabu v2 + pruning": "solutions/jwst_final_tabu_pruned.json",
         "Annealing + pruning": "solutions/jwst_pruned.json",
+        "Fast pipeline": "solutions/jwst_pipeline_best.json",
     },
     "Enterprise": {
         "Hill climbing": "solutions/enterprise_annealing_hill.json",
@@ -59,6 +61,7 @@ RUNS = {
         "SA v5 + pruning": "solutions/enterprise_final_sa_pruned.json",
         "Tabu v2 + pruning": "solutions/enterprise_final_tabu_pruned.json",
         "Annealing + pruning": "solutions/enterprise_pruned.json",
+        "Fast pipeline": "solutions/enterprise_pipeline_best.json",
     },
 }
 
