@@ -3,7 +3,7 @@
 
 Usage:  python pipeline.py JWST --seeds 100 --top 5 --workers 2 --prune-minutes 5
 Saves solutions/<problem>_pipeline_best.json ONLY if better than the file that is already there,
-and never touches any other solution file.
+and saves every officially scored pruned candidate under solutions/candidates/.
 """
 import argparse, json, os, time, statistics
 from multiprocessing import Pool
@@ -43,7 +43,7 @@ def main():
     ap.add_argument("--seed0", type=int, default=0)
     ap.add_argument("--top", type=int, default=5)
     ap.add_argument("--workers", type=int, default=2)
-    ap.add_argument("--prune-minutes", type=float, default=5)
+    ap.add_argument("--prune-minutes", type=float, default=30, help="cap per solution; pruning normally converges earlier")
     ap.add_argument("--t0", type=float, default=0.5)
     ap.add_argument("--t1", type=float, default=0.25)
     ap.add_argument("--p-mis", type=float, default=0.5)
@@ -63,10 +63,14 @@ def main():
     from fast_sa import Context
     ctx = Context(a.problem)
     best = None
+    os.makedirs("solutions/candidates", exist_ok=True)
     for seed, c, moves in pruned:
         f, co = official_result(ctx.udp, moves, ctx.udp.initial_cube_types, ctx.target_positions,
                                 ctx.udp.target_cube_types, ctx.num_types)
         print(f"  seed {seed}: C {c} -> {co}, L {len(moves)}, f {f:.5f}")
+        json.dump({"problem": a.problem, "fitness": f, "C": int(co), "L": len(moves), "seed": seed,
+                   "chromosome": [int(v) for mv in moves for v in mv] + [-1]},
+                  open(f"solutions/candidates/{a.problem.lower()}_seed{seed}.json", "w"))
         if best is None or f < best[0]:
             best = (f, co, moves, seed)
     f, co, moves, seed = best
